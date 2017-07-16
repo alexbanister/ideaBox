@@ -93,8 +93,8 @@ function getNewIdeaId() {
 }
 
 //Change idea quality functions
-function setQualityState(id) {
-  var 
-  index = getIdeaIndex(id);
-
-}
+// function setQualityState(id) {
+//   var
+//   index = getIdeaIndex(id);
+//
+// }
