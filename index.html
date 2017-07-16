@@ -2,13 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="lib/normalize.css">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>ideabox</title>
   </head>
   <body>
-
+    <section class="form-container">
+      <h1><span id="idea">idea</span><span id="box">box</span></h1>
+      <form class="idea-input">
+        <fieldset>
+          <input id="title" type="text" placeholder="Title" />
+          <input id="body" type="text" placeholder="Body" />
+          <button id="save" type="submit" name="save">save</button>
+        </fieldset>
+      </form>
+    </section>
+    <section class="idea-container">
+      <form>
+        <input id="search" type="text" placeholder="Search" />
+      </form>
+      <article class="ideas">
+        <h2>Example Idea 1</h2>
+        <div id="delete"></div>
+        <p class="idea-text">Tiramisu carrot cake fruitcake gingerbread bear claw powder icing tootsie roll ice cream.</p>
+        <div class="quality">
+          <div class="up-down-vote" id="upvote"></div>
+          <div class="up-down-vote" id="downvote"></div>
+          <p id="quality-word">quality: <span id ="quality-value">swill</span></p>
+        </div>
+    </article>
+    </section>
   <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="javascript.js"></script>
   </body>
