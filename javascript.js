@@ -159,11 +159,10 @@ function searchIdeas() {
       //this function should check if the element is hidden or not
       //This function needs to be written
     } else {
-      if ($('[data-id='val.id']').is(':hidden')) {
-        //This if statement should be moved to the function below
-        //slideDownIdeaCard(val.id);
-        //This function needs to be written
-      }
+      //slideDownIdeaCard(val.id);
+      //this function should check if the element is hidden or not
+      //probably something kinda like this: if ($('[data-id='+id+']').is(':hidden')) {
+      //This function needs to be written
     }
   });
 }
