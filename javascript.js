@@ -38,13 +38,13 @@ function createIdea(event) {
   event.preventDefault();
   var newIdea = new Idea(titleInput.val(), bodyInput.val());
   console.log("newIdea is ", newIdea);
-  addIdeaToPage();
+  addIdeaToPage(newIdea.id);
 }
 
-function addIdeaToPage(){
+function addIdeaToPage(id){
   var ideaContainerSection = $('.idea-container');
   console.log("ideaContainerSection is ", ideaContainerSection);
-  ideaContainerSection.append('<article class="idea">' +
+  ideaContainerSection.append('<article class="idea" data-id="' + id+ '">' +
                                 '<h2>' + titleInput.val() + '</h2>' +
                                 '<div id="delete"></div>' +
                                 '<p class="idea-text">' + bodyInput.val() + '</p>' +
@@ -148,6 +148,26 @@ function getNewIdeaId() {
   saveIdeaIdCounterToLocalStorage(id);
   return id;
 }
+
+//Search idea functions
+function searchIdeas() {
+  string = $("#search").val();
+  var regex = new RegExp (string);
+  $.each(ideaBoxModel, function(i, val){
+    if(!val.title.match(regex) && !val.body.match(regex)) {
+      //slideUpIdeaCard(val.id);
+      //this function should check if the element is hidden or not
+      //This function needs to be written
+    } else {
+      //slideDownIdeaCard(val.id);
+      //this function should check if the element is hidden or not
+      //probably something kinda like this: if ($('[data-id='+id+']').is(':hidden')) {
+      //This function needs to be written
+    }
+  });
+}
+
+$("#search").on("keyup", searchIdeas);
 
 //Change idea quality functions
 // function setQualityState(id) {
