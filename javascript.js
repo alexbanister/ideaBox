@@ -38,13 +38,13 @@ function createIdea(event) {
   event.preventDefault();
   var newIdea = new Idea(titleInput.val(), bodyInput.val());
   console.log("newIdea is ", newIdea);
-  addIdeaToPage();
+  addIdeaToPage(newIdea.id);
 }
 
-function addIdeaToPage(){
+function addIdeaToPage(id){
   var ideaContainerSection = $('.idea-container');
   console.log("ideaContainerSection is ", ideaContainerSection);
-  ideaContainerSection.append('<article class="idea">' +
+  ideaContainerSection.append('<article class="idea" data-id="' + id+ '">' +
                                 '<h2>' + titleInput.val() + '</h2>' +
                                 '<div id="delete"></div>' +
                                 '<p class="idea-text">' + bodyInput.val() + '</p>' +
