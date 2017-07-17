@@ -1,3 +1,44 @@
+// global variables
+var titleInput = $('#title');
+var bodyInput = $('#body');
+var saveButton = $('#save');
+
+
+// disable save button
+saveButton.attr('disabled','disabled');
+// event listeners
+titleInput.on('input', enableSave);
+bodyInput.on('input', enableSave);
+saveButton.on('click', createIdea);
+
+// functions
+
+// enable enter and clear buttons
+function enableSave(event) {
+  if (titleInput.val() != "" && bodyInput.val() != ""){
+    saveButton.attr('disabled',false);
+  }
+  else if (titleInput.val() == "" || bodyInput.val() == ""){
+  saveButton.attr('disabled','disabled');
+
+  }
+  else {
+    saveButton.attr('disabled','disabled');
+  }
+}
+
+function Idea(title, body) {
+  this.id = getNewIdeaId();
+  this.title = title;
+  this.body = body;
+  this.quality = 0;
+}
+
+function createIdea(event) {
+  event.preventDefault();
+  var newIdea = new Idea(titleInput.val(), bodyInput.val());
+  console.log("newIdea is ", newIdea);
+}
 //Array of objects for ideas
 //Expected Object structure
   // Obj = {
