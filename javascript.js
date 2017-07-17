@@ -1,3 +1,60 @@
+// global variables
+var titleInput = $('#title');
+var bodyInput = $('#body');
+var saveButton = $('#save');
+
+
+// disable save button
+saveButton.attr('disabled','disabled');
+// event listeners
+titleInput.on('input', enableSave);
+bodyInput.on('input', enableSave);
+saveButton.on('click', createIdea);
+
+// functions
+
+// enable enter and clear buttons
+function enableSave(event) {
+  if (titleInput.val() != "" && bodyInput.val() != ""){
+    saveButton.attr('disabled',false);
+  }
+  else if (titleInput.val() == "" || bodyInput.val() == ""){
+  saveButton.attr('disabled','disabled');
+
+  }
+  else {
+    saveButton.attr('disabled','disabled');
+  }
+}
+
+function Idea(title, body) {
+  this.id = getNewIdeaId();
+  this.title = title;
+  this.body = body;
+  this.quality = 0;
+}
+
+function createIdea(event) {
+  event.preventDefault();
+  var newIdea = new Idea(titleInput.val(), bodyInput.val());
+  console.log("newIdea is ", newIdea);
+  addIdeaToPage();
+}
+
+function addIdeaToPage(){
+  var ideaContainerSection = $('.idea-container');
+  console.log("ideaContainerSection is ", ideaContainerSection);
+  ideaContainerSection.append('<article class="idea">' +
+                                '<h2>' + titleInput.val() + '</h2>' +
+                                '<div id="delete"></div>' +
+                                '<p class="idea-text">' + bodyInput.val() + '</p>' +
+                                '<div class="quality">' +
+                                  '<div class="up-down-vote" id="upvote"></div>' +
+                                  '<div class="up-down-vote" id="downvote"></div>' +
+                                  '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
+                                '</div>' +
+                              '</article>');
+}
 //Array of objects for ideas
 //Expected Object structure
   // Obj = {

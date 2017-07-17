@@ -8,7 +8,7 @@ img {
   width: 50px;
 }
 h1, h2 {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto Slab", serif;
 }
 h1 {
   text-align: center;
@@ -25,6 +25,7 @@ article {
   border-bottom: #D1D3D4;
   border-bottom-style: solid;
   position: relative;
+  margin-bottom: 25px;
 
 }
 fieldset {
