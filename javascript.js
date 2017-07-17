@@ -38,6 +38,22 @@ function createIdea(event) {
   event.preventDefault();
   var newIdea = new Idea(titleInput.val(), bodyInput.val());
   console.log("newIdea is ", newIdea);
+  addIdeaToPage();
+}
+
+function addIdeaToPage(){
+  var ideaContainerSection = $('.idea-container');
+  console.log("ideaContainerSection is ", ideaContainerSection);
+  ideaContainerSection.append('<article class="idea">' +
+                                '<h2>' + titleInput.val() + '</h2>' +
+                                '<div id="delete"></div>' +
+                                '<p class="idea-text">' + bodyInput.val() + '</p>' +
+                                '<div class="quality">' +
+                                  '<div class="up-down-vote" id="upvote"></div>' +
+                                  '<div class="up-down-vote" id="downvote"></div>' +
+                                  '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
+                                '</div>' +
+                              '</article>');
 }
 //Array of objects for ideas
 //Expected Object structure
