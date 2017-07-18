@@ -6,8 +6,8 @@ loadStoredIdeas();
           //TESTING STUFF
           function loadTestData() {
             createIdea('accumsan cursus justo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis sapien ac sem laoreet suscipit ac a ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed felis mi, hendrerit placerat mi eget, efficitur tincidunt sapien. Mauris augue augue, condimentum eget ex ac, accumsan cursus justo. In mollis dictum metus at scelerisque. Mauris ac arcu odio. Suspendisse eget mi vitae tellus semper sollicitudin in vel nibh. Cras ac elit nulla. Maecenas suscipit urna id erat luctus, in iaculis purus facilisis.');
-            createIdea('blandit varius erat tempus', 'Praesent auctor fringilla tincidunt. Duis pharetra auctor tortor vitae posuere. Phasellus vestibulum ante leo, blandit varius erat tempus ac. Donec ligula orci, finibus vitae porta id, semper vel ligula.');
-            createIdea('ras accumsan ut est', 'Mauris ac fringilla dui. Donec blandit id sem vitae ornare. Cras accumsan ut est interdum posuere. Maecenas venenatis risus sed quam facilisis rhoncus. Pellentesque felis sapien, posuere et odio vitae, aliquet ultricies erat. Etiam facilisis justo purus, ut pulvinar libero ornare et. Morbi ornare condimentum turpis, vel blandit leo feugiat sed. Suspendisse sagittis urna a nulla eleifend pretium.');
+            createIdea('blandit varius erat tempus', 'Praesent auctor fringilla tincidunt. Duis pharetra auctor tortor vitae posuere. Phasellus vestibulum ante leo, blandit varius erat tempus ac. Donec ligula orci, finibus vitae porta id, semper vel ligula.', 2);
+            createIdea('ras accumsan ut est', 'Mauris ac fringilla dui. Donec blandit id sem vitae ornare. Cras accumsan ut est interdum posuere. Maecenas venenatis risus sed quam facilisis rhoncus. Pellentesque felis sapien, posuere et odio vitae, aliquet ultricies erat. Etiam facilisis justo purus, ut pulvinar libero ornare et. Morbi ornare condimentum turpis, vel blandit leo feugiat sed. Suspendisse sagittis urna a nulla eleifend pretium.', 1);
           }
 
           function clearTestData() {
@@ -30,11 +30,11 @@ function enableSave() {
   }
 }
 
-function Idea(title, body) {
+function Idea(title, body, quality) {
   this.id = getNewIdeaId();
   this.title = title;
   this.body = body;
-  this.quality = 0;
+  this.quality = quality || 0;
 }
 
 function submitNewIdea(e) {
@@ -46,8 +46,8 @@ function submitNewIdea(e) {
   $('#title').focus();
 }
 
-function createIdea(title, body) {
-  var newIdea = new Idea(title, body);
+function createIdea(title, body, quality) {
+  var newIdea = new Idea(title, body, quality);
   addIdeaToPage(newIdea.id, title, body);
   insertIdeaToModel(newIdea);
 }
@@ -69,6 +69,9 @@ function addIdeaToPage(id, title, body){
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
                               '</article>').hide().slideDown( "slow", function() {});
+
+//This is the eventListener jump off point
+  $('[data-id='+id+']').on("click", "#downvote", locateClickedCard);
 }
 
 function saveModelToLocalStorage() {
@@ -157,8 +160,18 @@ function slideDownIdeaCard(id) {
   }
 }
 //Change idea quality functions
-// function setQualityState(id) {
-//   var
-//   index = getIdeaIndex(id);
-//
-// }
+function locateClickedCard(e) {
+  console.log(e);
+  // var id = e.target.closest("[data-id]");
+  // $(this).parent('.listItem').attr('data-showInfo')
+}
+function setQualityState(id) {
+  var Idea = getIdeaFromModel(id);
+  var qualityText = $('#quality-value');
+  var upvote = $('#upvote');
+  var downvote = $('#downvote');
+
+  if (Idea.quality === 0) {
+
+  }
+}
