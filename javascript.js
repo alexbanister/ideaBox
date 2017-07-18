@@ -68,7 +68,7 @@ function addIdeaToPage(id, title, body){
                                   '<div class="up-down-vote" id="downvote"></div>' +
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
-                              '</article>');
+                              '</article>').hide().slideDown( "slow", function() {});
 }
 
 function saveModelToLocalStorage() {
