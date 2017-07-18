@@ -1,6 +1,6 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 img {
@@ -8,35 +8,38 @@ img {
   width: 50px;
 }
 h1, h2 {
-  font-family: "Roboto Slab", serif;
+  font-family: 'Roboto Slab', serif;
 }
 h1 {
   text-align: center;
 }
 h2 {
-  color: #6D6E71;
+  color: #6d6e71;
   display: inline-block;
 }
 p {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: #939598;
 }
 article {
-  border-bottom: #D1D3D4;
+  border-bottom: #d1d3d4;
   border-bottom-style: solid;
   position: relative;
   margin-bottom: 25px;
-
 }
 fieldset {
   border: none;
-  padding: 0px;
+  padding: 0;
+}
+legend {
+  display: none;
 }
 button {
   border: none;
   margin: auto;
   display: block;
 }
+
 body {
   display: flex;
   flex-wrap: wrap;
@@ -48,11 +51,15 @@ input {
   height: 25px;
   padding-left: 3px;
 }
+.search-area {
+  width: 75%;
+  margin: auto;
+}
 .quality {
-  color: #6D6E71;
+  color: #6d6e71;
 }
 .form-container {
-  background: #E5F3F2;
+  background: #e5f3f2;
   width: 100%;
   margin: auto;
 }
@@ -72,58 +79,59 @@ input {
   line-height: 20px;
   vertical-align: middle;
   margin-bottom: 15px;
+  margin-left: 5px;
 }
 #idea {
-  color: #00A79D;
+  color: #00a79d;
 }
 #box {
-  color: #6D6E71;
+  color: #6d6e71;
 }
 #save {
-  background: #00A79D;
-  color: #FFFFFF;
+  background: #00a79d;
+  color: #ffffff;
   width: 75%;
   height: 25px;
   margin-bottom: 25px;
 }
 #save:hover {
-  background: #045E55;
-
+  background: #045e55;
+}
+#save:disabled {
+  background: #cccccc;
 }
 #delete {
-  background-image: url("images/delete.svg");
+  background-image: url('images/delete.svg');
   width: 20px;
   height: 20px;
   display: inline-block;
   position: absolute;
-  top:0px;
-  right: 0px;
+  top: 0;
+  right: 0;
 }
 #delete:hover {
-  background-image:url("images/delete-hover.svg");
+  background-image: url('images/delete-hover.svg');
 }
 #upvote, #downvote, #quality {
   margin-left: 5px;
 }
 #upvote {
-  background-image: url("images/upvote.svg");
+  background-image: url('images/upvote.svg');
   width: 20px;
   height: 20px;
   display: inline-block;
 }
 #upvote:hover {
-  background-image:url("images/upvote-hover.svg");
-
+  background-image: url('images/upvote-hover.svg');
 }
 #downvote {
-  background-image: url("images/downvote.svg");
+  background-image: url('images/downvote.svg');
   width: 20px;
   height: 20px;
   display: inline-block;
 }
 #downvote:hover {
-  background-image:url("images/downvote-hover.svg");
-
+  background-image: url('images/downvote-hover.svg');
 }
 #search {
   margin: 25px auto;

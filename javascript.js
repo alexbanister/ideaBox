@@ -1,29 +1,32 @@
 // global variables
-var titleInput = $('#title');
-var bodyInput = $('#body');
-var saveButton = $('#save');
+var ideaBoxModel = [];
+retrieveModelFromLocalStorage();
+loadStoredIdeas();
 
+          //TESTING STUFF
+          function loadTestData() {
+            createIdea('accumsan cursus justo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis sapien ac sem laoreet suscipit ac a ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed felis mi, hendrerit placerat mi eget, efficitur tincidunt sapien. Mauris augue augue, condimentum eget ex ac, accumsan cursus justo. In mollis dictum metus at scelerisque. Mauris ac arcu odio. Suspendisse eget mi vitae tellus semper sollicitudin in vel nibh. Cras ac elit nulla. Maecenas suscipit urna id erat luctus, in iaculis purus facilisis.');
+            createIdea('blandit varius erat tempus', 'Praesent auctor fringilla tincidunt. Duis pharetra auctor tortor vitae posuere. Phasellus vestibulum ante leo, blandit varius erat tempus ac. Donec ligula orci, finibus vitae porta id, semper vel ligula.');
+            createIdea('ras accumsan ut est', 'Mauris ac fringilla dui. Donec blandit id sem vitae ornare. Cras accumsan ut est interdum posuere. Maecenas venenatis risus sed quam facilisis rhoncus. Pellentesque felis sapien, posuere et odio vitae, aliquet ultricies erat. Etiam facilisis justo purus, ut pulvinar libero ornare et. Morbi ornare condimentum turpis, vel blandit leo feugiat sed. Suspendisse sagittis urna a nulla eleifend pretium.');
+          }
 
-// disable save button
-saveButton.attr('disabled','disabled');
+          function clearTestData() {
+            ideaBoxModel = []
+            localStorage.clear();
+          }
+
 // event listeners
-titleInput.on('input', enableSave);
-bodyInput.on('input', enableSave);
-saveButton.on('click', createIdea);
+$('#title').on('keyup', enableSave);
+$('#body').on('keyup', enableSave);
+$('#save').on('click', submitNewIdea);
+$("#search").on("keyup", searchIdeas);
 
 // functions
-
-// enable enter and clear buttons
-function enableSave(event) {
-  if (titleInput.val() != "" && bodyInput.val() != ""){
-    saveButton.attr('disabled',false);
-  }
-  else if (titleInput.val() == "" || bodyInput.val() == ""){
-  saveButton.attr('disabled','disabled');
-
-  }
-  else {
-    saveButton.attr('disabled','disabled');
+function enableSave() {
+  if ($('#title').val() != "" && $('#body').val() != ""){
+    $('#save').attr("disabled", false);
+  } else {
+    $('#save').attr("disabled","disabled");
   }
 }
 
@@ -34,20 +37,33 @@ function Idea(title, body) {
   this.quality = 0;
 }
 
-function createIdea(event) {
-  event.preventDefault();
-  var newIdea = new Idea(titleInput.val(), bodyInput.val());
-  console.log("newIdea is ", newIdea);
-  addIdeaToPage(newIdea.id);
+function submitNewIdea(e) {
+  e.preventDefault();
+  createIdea($('#title').val(), $('#body').val());
+  $('#title').val('');
+  $('#body').val('');
+  enableSave();
+  $('#title').focus();
 }
 
-function addIdeaToPage(id){
+function createIdea(title, body) {
+  var newIdea = new Idea(title, body);
+  addIdeaToPage(newIdea.id, title, body);
+  insertIdeaToModel(newIdea);
+}
+
+function loadStoredIdeas() {
+  $.each(ideaBoxModel, function(i, val){
+    addIdeaToPage(val.id, val.title, val.body);
+  });
+}
+function addIdeaToPage(id, title, body){
   var ideaContainerSection = $('.idea-container');
   console.log("ideaContainerSection is ", ideaContainerSection);
-  ideaContainerSection.append('<article class="idea" data-id="' + id+ '">' +
-                                '<h2>' + titleInput.val() + '</h2>' +
+  ideaContainerSection.prepend('<article class="idea" data-id="' + id + '">' +
+                                '<h2>' + title + '</h2>' +
                                 '<div id="delete"></div>' +
-                                '<p class="idea-text">' + bodyInput.val() + '</p>' +
+                                '<p class="idea-text">' + body + '</p>' +
                                 '<div class="quality">' +
                                   '<div class="up-down-vote" id="upvote"></div>' +
                                   '<div class="up-down-vote" id="downvote"></div>' +
@@ -63,32 +79,6 @@ function addIdeaToPage(id){
   //   body: "string",
   //   quality: num || 0
   // }
-var ideaBoxModel = [];
-retrieveModelFromLocalStorage();
-
-          //TESTING STUFF
-          var moreObj = {
-            id: getNewIdeaId(),
-            title: "foo",
-            body: "bar",
-            quality: 0
-          }
-          var anotherObj = {
-            id: getNewIdeaId(),
-            title: "things",
-            body: "stuff",
-            quality: 1
-          }
-          var someObj = {
-            id: getNewIdeaId(),
-            title: "blah",
-            body: "flub",
-            quality: 2
-          }
-          insertIdeaToModel(moreObj);
-          insertIdeaToModel(anotherObj);
-          insertIdeaToModel(someObj);
-          //TESTING STUFF
 
 function saveModelToLocalStorage() {
   idea = JSON.stringify(ideaBoxModel);
@@ -166,8 +156,6 @@ function searchIdeas() {
     }
   });
 }
-
-$("#search").on("keyup", searchIdeas);
 
 //Change idea quality functions
 // function setQualityState(id) {
