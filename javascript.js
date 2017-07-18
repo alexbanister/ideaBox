@@ -72,6 +72,7 @@ function addIdeaToPage(id, title, body){
 
 //This is the eventListener jump off point
   $('[data-id='+id+']').on("click", "#downvote", downvote);
+  $('[data-id='+id+']').on("click", "#delete", deleteIdea);
 }
 
 function saveModelToLocalStorage() {
@@ -172,6 +173,13 @@ function downvote(e) {
   var idea = getIdeaFromModel(id);
   idea.quality = idea.quality - 1;
   updateIdeatoModel(idea);
+}
+
+function deleteIdea(e) {
+  var article = $(e.target).closest(".idea");
+  article.remove();
+  var id = locateClickedCard(e);
+  deleteIdeaFromModel(id);
 }
 
 function setQualityState(id) {
