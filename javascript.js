@@ -59,7 +59,6 @@ function loadStoredIdeas() {
 }
 function addIdeaToPage(id, title, body){
   var ideaContainerSection = $('.idea-container');
-  console.log("ideaContainerSection is ", ideaContainerSection);
   ideaContainerSection.prepend('<article class="idea" data-id="' + id + '">' +
                                 '<h2>' + title + '</h2>' +
                                 '<div id="delete"></div>' +
@@ -71,14 +70,6 @@ function addIdeaToPage(id, title, body){
                                 '</div>' +
                               '</article>');
 }
-//Array of objects for ideas
-//Expected Object structure
-  // Obj = {
-  //   id: getNewIdeaId(),
-  //   title: "string",
-  //   body: "string",
-  //   quality: num || 0
-  // }
 
 function saveModelToLocalStorage() {
   idea = JSON.stringify(ideaBoxModel);
@@ -145,18 +136,26 @@ function searchIdeas() {
   var regex = new RegExp (string);
   $.each(ideaBoxModel, function(i, val){
     if(!val.title.match(regex) && !val.body.match(regex)) {
-      //slideUpIdeaCard(val.id);
-      //this function should check if the element is hidden or not
-      //This function needs to be written
+      slideUpIdeaCard(val.id);
     } else {
-      //slideDownIdeaCard(val.id);
-      //this function should check if the element is hidden or not
-      //probably something kinda like this: if ($('[data-id='+id+']').is(':hidden')) {
-      //This function needs to be written
+      slideDownIdeaCard(val.id);
     }
   });
 }
 
+function slideUpIdeaCard(id) {
+  var elementToSlide = $('[data-id='+id+']');
+  if (elementToSlide.is(":visible")) {
+    elementToSlide.slideUp( "slow", function() {});
+  }
+}
+
+function slideDownIdeaCard(id) {
+  var elementToSlide = $('[data-id='+id+']');
+  if (elementToSlide.is(":hidden")) {
+    elementToSlide.slideDown( "slow", function() {});
+  }
+}
 //Change idea quality functions
 // function setQualityState(id) {
 //   var
