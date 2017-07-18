@@ -71,7 +71,7 @@ function addIdeaToPage(id, title, body){
                               '</article>').hide().slideDown( "slow", function() {});
 
 //This is the eventListener jump off point
-  $('[data-id='+id+']').on("click", "#downvote", locateClickedCard);
+  $('[data-id='+id+']').on("click", "#downvote", downvote);
 }
 
 function saveModelToLocalStorage() {
@@ -104,9 +104,10 @@ function insertIdeaToModel(idea) {
 
 function getIdeaFromModel(id) {
   var idea = $.grep(ideaBoxModel, function(e){ return e.id == id; });
-  return idea;
+  return idea[0];
 }
 
+//I don't think we're using this function
 function getIdeaIndex(id) {
   return ideaBoxModel.findIndex(function(model) {
     return model.id === id;
@@ -122,7 +123,8 @@ function deleteIdeaFromModel(id) {
 }
 
 function updateIdeatoModel(idea) {
-  ideaBoxModel[idea.id] = idea;
+  var index = getIdeaIndex(idea.id);
+  ideaBoxModel[index] = idea;
   saveModelToLocalStorage();
 }
 
@@ -161,10 +163,17 @@ function slideDownIdeaCard(id) {
 }
 //Change idea quality functions
 function locateClickedCard(e) {
-  console.log(e);
-  // var id = e.target.closest("[data-id]");
-  // $(this).parent('.listItem').attr('data-showInfo')
+  var ideaCardId = $(e.target).closest("[data-id]").data("id");
+  return ideaCardId;
 }
+
+function downvote(e) {
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  idea.quality = idea.quality - 1;
+  updateIdeatoModel(idea);
+}
+
 function setQualityState(id) {
   var Idea = getIdeaFromModel(id);
   var qualityText = $('#quality-value');
