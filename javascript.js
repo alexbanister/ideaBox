@@ -49,8 +49,8 @@ function submitNewIdea(e) {
 
 function createIdea(title, body, quality) {
   var newIdea = new Idea(title, body, quality);
-  addIdeaToPage(newIdea.id, title, body);
   insertIdeaToModel(newIdea);
+  addIdeaToPage(newIdea.id, title, body);
 }
 
 function loadStoredIdeas() {
@@ -104,10 +104,14 @@ function retrieveIdeaIdCounterFromLocalStorage() {
 
 function insertIdeaToModel(idea) {
   ideaBoxModel.push(idea);
+  console.log("insertIdeaToModel:");
+  console.log(idea);
   saveModelToLocalStorage();
 }
 
 function getIdeaFromModel(id) {
+  console.log("getIdeaFromModel: ");
+  console.log(id);
   var idea = $.grep(ideaBoxModel, function(e){ return e.id == id; });
   return idea[0];
 }
