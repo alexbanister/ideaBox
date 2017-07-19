@@ -69,9 +69,10 @@ function addIdeaToPage(id, title, body){
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
                               '</article>').hide().slideDown( "slow", function() {});
-
+  setQualityState(id);
 //This is the eventListener jump off point
   $('[data-id='+id+']').on("click", "#downvote", downvote);
+  $('[data-id='+id+']').on("click", "#upvote", upvote);
   $('[data-id='+id+']').on("click", "#delete", deleteIdea);
 }
 
@@ -108,7 +109,6 @@ function getIdeaFromModel(id) {
   return idea[0];
 }
 
-//I don't think we're using this function
 function getIdeaIndex(id) {
   return ideaBoxModel.findIndex(function(model) {
     return model.id === id;
@@ -169,13 +169,31 @@ function locateClickedCard(e) {
 }
 
 function downvote(e) {
+  e.preventDefault();
   var id = locateClickedCard(e);
   var idea = getIdeaFromModel(id);
   idea.quality = idea.quality - 1;
+  if(idea.quality < 0){
+    idea.quality = 0;
+  }
   updateIdeatoModel(idea);
+  setQualityState(id)
+}
+
+function upvote(e) {
+  e.preventDefault();
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  idea.quality = idea.quality + 1;
+  if(idea.quality > 2){
+    idea.quality = 2;
+  }
+  updateIdeatoModel(idea);
+  setQualityState(id);
 }
 
 function deleteIdea(e) {
+  e.preventDefault();
   var article = $(e.target).closest(".idea");
   article.remove();
   var id = locateClickedCard(e);
@@ -183,12 +201,10 @@ function deleteIdea(e) {
 }
 
 function setQualityState(id) {
-  var Idea = getIdeaFromModel(id);
-  var qualityText = $('#quality-value');
-  var upvote = $('#upvote');
-  var downvote = $('#downvote');
+  var idea = getIdeaFromModel(id);
+  var qualities = ['swill', 'plausible', 'genius'];
+  var article = $('[data-id='+id+']');
+  var qualityText = article.find('#quality-value');
+  qualityText.text(qualities[idea.quality]);
 
-  if (Idea.quality === 0) {
-
-  }
 }
