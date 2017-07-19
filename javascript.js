@@ -70,7 +70,7 @@ function addIdeaToPage(id, title, body){
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
                               '</article>').hide().slideDown( "slow", function() {});
-  //setQualityState(id);
+  setQualityState(id);
 //This is the eventListener jump off point
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
@@ -80,7 +80,7 @@ function addIdeaToPage(id, title, body){
 }
 
 function saveModelToLocalStorage() {
-  idea = JSON.stringify(ideaBoxModel);
+  var idea = JSON.stringify(ideaBoxModel);
   localStorage.setItem('ideaBoxModel', idea)
 }
 
@@ -104,14 +104,10 @@ function retrieveIdeaIdCounterFromLocalStorage() {
 
 function insertIdeaToModel(idea) {
   ideaBoxModel.push(idea);
-  console.log("insertIdeaToModel:");
-  console.log(idea);
   saveModelToLocalStorage();
 }
 
 function getIdeaFromModel(id) {
-  console.log("getIdeaFromModel: ");
-  console.log(id);
   var idea = $.grep(ideaBoxModel, function(e){ return e.id == id; });
   return idea[0];
 }

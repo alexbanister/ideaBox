@@ -3,29 +3,34 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  font-size: 2em;
+}
 img {
-  height: 50px;
-  width: 50px;
+  height: 2em;
+  width: 2em;
 }
 h1, h2 {
   font-family: 'Roboto Slab', serif;
 }
 h1 {
   text-align: center;
+  font-size: 2.5em;
 }
 h2 {
   color: #6d6e71;
   display: inline-block;
+  margin-right: 2em;
 }
 p {
   font-family: 'Open Sans', sans-serif;
   color: #939598;
+  line-height: 1.3em;
 }
 article {
-  border-bottom: #d1d3d4;
-  border-bottom-style: solid;
+  border-bottom: 1px solid #d1d3d4;
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 1.6em;
 }
 fieldset {
   border: none;
@@ -47,16 +52,33 @@ body {
 input {
   display: block;
   margin: auto;
-  width: 75%;
-  height: 25px;
-  padding-left: 3px;
+  margin-bottom: .8em;
+  width: 35em;
+  height: 2.3em;
+  padding: .3em;
+  border: 2px solid #cbcccd;
+}
+input::placeholder {
+  color: #c3c4c5;
+}
+textarea {
+  display: block;
+  margin: auto;
+  margin-bottom: .8em;
+  width: 35em;
+  height: 2.3em;
+  padding: .3em;
+  line-height: 1.5em;
+  border: 2px solid #cbcccd;
+}
+textarea::placeholder {
+  color: #c3c4c5;
 }
 .highlight-search {
   background-color: #00a79d;
   color: #ffffff;
 }
 .search-area {
-  width: 75%;
   margin: auto;
 }
 .quality {
@@ -68,22 +90,25 @@ input {
   margin: auto;
 }
 .idea-container {
-  width: 75%;
   margin: auto;
+  width: 35em;
 }
 .idea-text {
-  margin: 25px auto;
+  margin: 1em auto;
 }
 .quality {
   width: 100%;
-  margin: 10px auto;
+  margin: .3em auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.1em;
 }
 #quality-word {
   display: inline-block;
-  line-height: 20px;
+  line-height: 2em;
   vertical-align: middle;
-  margin-bottom: 15px;
-  margin-left: 5px;
+  margin-left: .3em;
 }
 #idea {
   color: #00a79d;
@@ -94,20 +119,22 @@ input {
 #save {
   background: #00a79d;
   color: #ffffff;
-  width: 75%;
-  height: 25px;
-  margin-bottom: 25px;
+  width: 35em;
+  height: 2.3em;
+  padding: .3em;
+  margin: .8em auto;
+  margin-bottom: 1.9em;
 }
 #save:hover {
   background: #045e55;
 }
 #save:disabled {
-  background: #cccccc;
+  background: #c3c4c5;
 }
 #delete {
   background-image: url('images/delete.svg');
-  width: 20px;
-  height: 20px;
+  width: 1.5em;
+  height: 1.5em;
   display: inline-block;
   position: absolute;
   top: 0;
@@ -117,12 +144,12 @@ input {
   background-image: url('images/delete-hover.svg');
 }
 #upvote, #downvote, #quality {
-  margin-left: 5px;
+  margin-right: .9em;
 }
 #upvote {
   background-image: url('images/upvote.svg');
-  width: 20px;
-  height: 20px;
+  width: 1.6em;
+  height: 1.6em;
   display: inline-block;
 }
 #upvote:hover {
@@ -130,17 +157,133 @@ input {
 }
 #downvote {
   background-image: url('images/downvote.svg');
-  width: 20px;
-  height: 20px;
+  width: 1.6em;
+  height: 1.6em;
   display: inline-block;
 }
 #downvote:hover {
   background-image: url('images/downvote-hover.svg');
 }
 #search {
-  margin: 25px auto;
-  width: 100%;
+  margin: 1.9em auto;
+  margin-bottom: 2.3em;
 }
 #body {
-  margin: 10px auto;
+  margin: .5em auto;
+}
+
+@media (max-width: 1300px) {
+  body {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 1100px) {
+  body {
+    font-size: 1.4em;
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    font-size: .8em;
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    font-size: .6em;
+  }
+  input {
+    width: 15em;
+    font-size: 2em;
+  }
+  h1 {
+    font-size: 3em;
+  }
+  h2 {
+    font-size: 2.4em;
+  }
+  textarea {
+    width: 15em;
+    font-size: 2em;
+    height: 5em;
+  }
+  .idea-container {
+    width: 30em;
+  }
+  .idea-text {
+    font-size: 1.7em;
+  }
+  #save {
+    width: 15em;
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+  #search {
+    margin: 1em auto;
+    margin-bottom: 1.8em;
+  }
+  #upvote {
+    width: 2.7em;
+    height: 2.7em;
+  }
+  #downvote {
+    width: 2.7em;
+    height: 2.7em;
+  }
+  #delete {
+    width: 2.7em;
+    height: 2.7em;
+  }
+  #quality-word {
+    font-size: 1.7em;
+  }
+}
+
+@media (max-width: 350px) {
+  body {
+    font-size: .6em;
+  }
+  input {
+    width: 15em;
+    font-size: 2em;
+  }
+  h1 {
+    font-size: 3em;
+  }
+  h2 {
+    font-size: 2.4em;
+  }
+  .idea-container {
+    width: 30em;
+  }
+  .idea-text {
+    font-size: 1.7em;
+  }
+  #save {
+    width: 15em;
+    font-size: 2em;
+  }
+  #upvote {
+    width: 2.7em;
+    height: 2.7em;
+  }
+  #downvote {
+    width: 2.7em;
+    height: 2.7em;
+  }
+  #delete {
+    width: 2.7em;
+    height: 2.7em;
+  }
+  #quality-word {
+    font-size: 1.7em;
+  }
 }
