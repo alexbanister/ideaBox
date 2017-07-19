@@ -1,3 +1,4 @@
+
 // global variables
 var ideaBoxModel = [];
 retrieveModelFromLocalStorage();
@@ -69,7 +70,7 @@ function addIdeaToPage(id, title, body){
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
                               '</article>').hide().slideDown( "slow", function() {});
-  setQualityState(id);
+  //setQualityState(id);
 //This is the eventListener jump off point
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
@@ -141,12 +142,16 @@ function getNewIdeaId() {
 //Search idea functions
 function searchIdeas() {
   string = $("#search").val();
-  var regex = new RegExp (string);
+  var regex = new RegExp (string, 'i');
   $.each(ideaBoxModel, function(i, val){
     if(!val.title.match(regex) && !val.body.match(regex)) {
       slideUpIdeaCard(val.id);
     } else {
       slideDownIdeaCard(val.id);
+      var title = $('[data-id='+val.id+']').find("h2");
+      title.html(val.title.replace(regex, function(str) {return '<span class="highlight-search">'+str+'</span>'}));
+      var body = $('[data-id='+val.id+']').find(".idea-text");
+      body.html(val.body.replace(regex, function(str) {return '<span class="highlight-search">'+str+'</span>'}));
     }
   });
 }

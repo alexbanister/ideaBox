@@ -51,6 +51,10 @@ input {
   height: 25px;
   padding-left: 3px;
 }
+.highlight-search {
+  background-color: #00a79d;
+  color: #ffffff;
+}
 .search-area {
   width: 75%;
   margin: auto;
