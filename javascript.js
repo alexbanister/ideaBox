@@ -60,18 +60,21 @@ function loadStoredIdeas() {
 function addIdeaToPage(id, title, body){
   var ideaContainerSection = $('.idea-container');
   ideaContainerSection.prepend('<article class="idea" data-id="' + id + '">' +
-                                '<h2>' + title + '</h2>' +
+                                '<h2 contenteditable=true>' + title + '</h2>' +
                                 '<div id="delete"></div>' +
-                                '<p class="idea-text">' + body + '</p>' +
+                                '<p class="idea-text" contenteditable=true>' + body + '</p>' +
                                 '<div class="quality">' +
                                   '<div class="up-down-vote" id="upvote"></div>' +
                                   '<div class="up-down-vote" id="downvote"></div>' +
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
                               '</article>').hide().slideDown( "slow", function() {});
-
+  setQualityState(id);
 //This is the eventListener jump off point
+  $('[data-id='+id+']').on("blur", "h2", saveTitle);
+  $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
+  $('[data-id='+id+']').on("click", "#upvote", upvote);
   $('[data-id='+id+']').on("click", "#delete", deleteIdea);
 }
 
@@ -108,7 +111,6 @@ function getIdeaFromModel(id) {
   return idea[0];
 }
 
-//I don't think we're using this function
 function getIdeaIndex(id) {
   return ideaBoxModel.findIndex(function(model) {
     return model.id === id;
@@ -169,13 +171,31 @@ function locateClickedCard(e) {
 }
 
 function downvote(e) {
+  e.preventDefault();
   var id = locateClickedCard(e);
   var idea = getIdeaFromModel(id);
   idea.quality = idea.quality - 1;
+  if(idea.quality < 0){
+    idea.quality = 0;
+  }
   updateIdeatoModel(idea);
+  setQualityState(id)
+}
+
+function upvote(e) {
+  e.preventDefault();
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  idea.quality = idea.quality + 1;
+  if(idea.quality > 2){
+    idea.quality = 2;
+  }
+  updateIdeatoModel(idea);
+  setQualityState(id);
 }
 
 function deleteIdea(e) {
+  e.preventDefault();
   var article = $(e.target).closest(".idea");
   article.remove();
   var id = locateClickedCard(e);
@@ -183,12 +203,28 @@ function deleteIdea(e) {
 }
 
 function setQualityState(id) {
-  var Idea = getIdeaFromModel(id);
-  var qualityText = $('#quality-value');
-  var upvote = $('#upvote');
-  var downvote = $('#downvote');
+  var idea = getIdeaFromModel(id);
+  var qualities = ['swill', 'plausible', 'genius'];
+  var article = $('[data-id='+id+']');
+  var qualityText = article.find('#quality-value');
+  qualityText.text(qualities[idea.quality]);
 
-  if (Idea.quality === 0) {
+}
 
-  }
+function saveTitle(e) {
+  e.preventDefault();
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  var newTitle = $(e.target).closest('h2').text();
+  idea.title = newTitle;
+  updateIdeatoModel(idea);
+}
+
+function saveBody(e) {
+  e.preventDefault();
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  var newBody = $(e.target).closest('.idea-text').text();
+  idea.body = newBody;
+  updateIdeatoModel(idea);
 }
