@@ -1,3 +1,4 @@
+
 // global variables
 var ideaBoxModel = [];
 retrieveModelFromLocalStorage();
@@ -107,7 +108,6 @@ function getIdeaFromModel(id) {
   return idea[0];
 }
 
-//I don't think we're using this function
 function getIdeaIndex(id) {
   return ideaBoxModel.findIndex(function(model) {
     return model.id === id;
@@ -138,10 +138,13 @@ function getNewIdeaId() {
 //Search idea functions
 function searchIdeas() {
   string = $("#search").val();
-  var regex = new RegExp (string);
+  var regex = new RegExp (string, 'i');
   $.each(ideaBoxModel, function(i, val){
     if(!val.title.match(regex) && !val.body.match(regex)) {
       slideUpIdeaCard(val.id);
+      string.regexReplace("("+string+")","<b>\1<\b>")
+      // highlightSearch = result.replace(regex, "<b>&1</b>");
+      // $('[data-id='+id+']').html(highlightSearch);
     } else {
       slideDownIdeaCard(val.id);
     }
