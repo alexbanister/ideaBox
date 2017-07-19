@@ -72,6 +72,7 @@ function addIdeaToPage(id, title, body){
   setQualityState(id);
 //This is the eventListener jump off point
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
+  $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
   $('[data-id='+id+']').on("click", "#upvote", upvote);
   $('[data-id='+id+']').on("click", "#delete", deleteIdea);
@@ -216,5 +217,14 @@ function saveTitle(e) {
   var idea = getIdeaFromModel(id);
   var newTitle = $(e.target).closest('h2').text();
   idea.title = newTitle;
+  updateIdeatoModel(idea);
+}
+
+function saveBody(e) {
+  e.preventDefault();
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  var newBody = $(e.target).closest('.idea-text').text();
+  idea.body = newBody;
   updateIdeatoModel(idea);
 }
