@@ -60,9 +60,9 @@ function loadStoredIdeas() {
 function addIdeaToPage(id, title, body){
   var ideaContainerSection = $('.idea-container');
   ideaContainerSection.prepend('<article class="idea" data-id="' + id + '">' +
-                                '<h2>' + title + '</h2>' +
+                                '<h2 contenteditable=true>' + title + '</h2>' +
                                 '<div id="delete"></div>' +
-                                '<p class="idea-text">' + body + '</p>' +
+                                '<p class="idea-text" contenteditable=true>' + body + '</p>' +
                                 '<div class="quality">' +
                                   '<div class="up-down-vote" id="upvote"></div>' +
                                   '<div class="up-down-vote" id="downvote"></div>' +
@@ -71,6 +71,7 @@ function addIdeaToPage(id, title, body){
                               '</article>').hide().slideDown( "slow", function() {});
   setQualityState(id);
 //This is the eventListener jump off point
+  $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
   $('[data-id='+id+']').on("click", "#upvote", upvote);
   $('[data-id='+id+']').on("click", "#delete", deleteIdea);
@@ -207,4 +208,13 @@ function setQualityState(id) {
   var qualityText = article.find('#quality-value');
   qualityText.text(qualities[idea.quality]);
 
+}
+
+function saveTitle(e) {
+  e.preventDefault();
+  var id = locateClickedCard(e);
+  var idea = getIdeaFromModel(id);
+  var newTitle = $(e.target).closest('h2').text();
+  idea.title = newTitle;
+  updateIdeatoModel(idea);
 }
