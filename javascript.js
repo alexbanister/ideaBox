@@ -211,6 +211,7 @@ function upvote(e) {
 function deleteIdea(e) {
   e.preventDefault();
   var article = $(e.target).closest(".idea");
+  slideUpIdeaCard(id);
   article.remove();
   var id = locateClickedCard(e);
   removeEventListeners(id);
