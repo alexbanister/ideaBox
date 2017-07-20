@@ -21,6 +21,7 @@ h2 {
   color: #6d6e71;
   display: inline-block;
   margin-right: 2em;
+  cursor: pointer;
 }
 p {
   font-family: 'Open Sans', sans-serif;
@@ -35,8 +36,12 @@ article {
 fieldset {
   border: none;
   padding: 0;
+  position: relative;
 }
 legend {
+  display: none;
+}
+label {
   display: none;
 }
 button {
@@ -96,6 +101,7 @@ textarea::placeholder {
 .idea-text {
   line-height: 1.5em;
   margin: 1em auto;
+  cursor: pointer;
 }
 .quality {
   width: 100%;
@@ -105,6 +111,35 @@ textarea::placeholder {
   align-items: center;
   margin-bottom: 1.1em;
 }
+#upvote.vote-disabled, #downvote.vote-disabled {
+  background: none;
+  cursor: default;
+}
+#upvote.vote-disabled:hover, #downvote.vote-disabled:hover {
+  background: none;
+  cursor: default;
+}
+.clearable {
+  background: url('images/delete.svg') no-repeat right -2.2em center;
+  transition: background .4s;
+}
+
+.clearable:focus {
+  background-position: right 5px center;
+  transition: background .4s;
+}
+
+.clear-search {
+  position: absolute;
+  cursor: pointer;
+  height: 2.2em;
+  width: 2.2em;
+  padding: .3em;
+  top: 2em;
+  right: .1em;
+  /*display: none;*/
+}
+
 #quality-word {
   display: inline-block;
   line-height: 2em;
@@ -143,6 +178,7 @@ textarea::placeholder {
 }
 #delete:hover {
   background-image: url('images/delete-hover.svg');
+  cursor: pointer;
 }
 #upvote, #downvote, #quality {
   margin-right: .9em;
@@ -155,6 +191,7 @@ textarea::placeholder {
 }
 #upvote:hover {
   background-image: url('images/upvote-hover.svg');
+  cursor: pointer;
 }
 #downvote {
   background-image: url('images/downvote.svg');
@@ -164,6 +201,7 @@ textarea::placeholder {
 }
 #downvote:hover {
   background-image: url('images/downvote-hover.svg');
+  cursor: pointer;
 }
 #search {
   margin: 1.9em auto;
@@ -221,6 +259,10 @@ textarea::placeholder {
   }
   .idea-text {
     font-size: 1.7em;
+  }
+  .clear-search {
+    height: 4.6em;
+    width: 4.6em;
   }
   #save {
     width: 15em;

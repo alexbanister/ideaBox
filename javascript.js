@@ -9,7 +9,12 @@ $('#title').on('keyup', enableSave);
 $('#body').on('keyup', enableSave);
 $('#save').on('click', submitNewIdea);
 $("#search").on("keyup", searchIdeas);
+$(".clear-search").on("click", clearSearch);
 
+function clearSearch() {
+  $("#search").val('');
+  searchIdeas();
+}
 // functions
 // Dynamic Event listeners
 function createEventListeners(id) {
@@ -227,6 +232,20 @@ function setQualityState(id) {
   var idea = getIdeaFromModel(id);
   var qualities = ['swill', 'plausible', 'genius'];
   $('[data-id='+id+']').find('#quality-value').text(qualities[idea.quality]);
+  disableQuality(id, idea.quality);
+}
+
+function disableQuality(id, quality) {
+  if (quality === 0) {
+    $('[data-id='+id+']').find('#downvote').addClass('vote-disabled');
+  } else {
+    $('[data-id='+id+']').find('#downvote').removeClass('vote-disabled');
+  }
+  if (quality === 2) {
+    $('[data-id='+id+']').find('#upvote').addClass('vote-disabled');
+  } else {
+    $('[data-id='+id+']').find('#upvote').removeClass('vote-disabled');
+  }
 }
 
 function saveTitle(e) {

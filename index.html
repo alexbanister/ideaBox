@@ -16,8 +16,10 @@
       <form class="idea-input">
         <fieldset>
           <legend>Enter new Idea</legend>
-          <input id="title" type="text" placeholder="Title" />
-          <textarea id="body" placeholder="Body"></textarea>
+          <label for="title">Idea Title</label>
+          <input id="title" name="title" type="text" placeholder="Title" />
+          <label for="body">Idea Body</label>
+          <textarea id="body" name="body" placeholder="Body"></textarea>
           <button id="save" type="submit" name="save" disabled>save</button>
         </fieldset>
       </form>
@@ -27,7 +29,9 @@
       <form>
         <fieldset>
           <legend>Search</legend>
-          <input id="search" type="text" placeholder="Search" />
+          <label for="search">Search</label>
+          <input id="search" name="search" class="clearable" type="text" placeholder="Search" />
+          <span class='clear-search'></span>
         </fieldset>
       </form>
     </section>
