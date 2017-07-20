@@ -94,7 +94,7 @@ textarea::placeholder {
   width: 35em;
 }
 .idea-text {
-  line-height: 22px;
+  line-height: 1.5em;
   margin: 1em auto;
 }
 .quality {
