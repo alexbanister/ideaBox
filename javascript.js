@@ -61,26 +61,34 @@ function loadStoredIdeas() {
 function addIdeaToPage(id, title, body){
   var ideaContainerSection = $('.idea-container');
   ideaContainerSection.prepend('<article class="idea" data-id="' + id + '">' +
-                                '<h2 contenteditable=true>' + title + '</h2>' +
+                                '<h2 contenteditable="true">' + title + '</h2>' +
                                 '<div id="delete"></div>' +
-                                '<p class="idea-text" contenteditable=true>' + body + '</p>' +
+                                '<p class="idea-text" contenteditable="true">' + body + '</p>' +
                                 '<div class="quality">' +
                                   '<div class="up-down-vote" id="upvote"></div>' +
                                   '<div class="up-down-vote" id="downvote"></div>' +
                                   '<p id="quality-word">quality: <span id ="quality-value">swill</span></p>' +
                                 '</div>' +
                               '</article>').hide().slideDown( "slow", function() {});
-  //setQualityState(id);
-//This is the eventListener jump off point
+  setQualityState(id);
+  createEventListeners(id);
+}
+function createEventListeners(id) {
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
   $('[data-id='+id+']').on("click", "#upvote", upvote);
   $('[data-id='+id+']').on("click", "#delete", deleteIdea);
 }
-
+function removeEventListeners(id) {
+  $('[data-id='+id+']').off("blur", "h2", saveTitle);
+  $('[data-id='+id+']').off("blur", ".idea-text", saveBody);
+  $('[data-id='+id+']').off("click", "#downvote", downvote);
+  $('[data-id='+id+']').off("click", "#upvote", upvote);
+  $('[data-id='+id+']').off("click", "#delete", deleteIdea);
+}
 function saveModelToLocalStorage() {
-  idea = JSON.stringify(ideaBoxModel);
+  var idea = JSON.stringify(ideaBoxModel);
   localStorage.setItem('ideaBoxModel', idea)
 }
 
@@ -104,14 +112,10 @@ function retrieveIdeaIdCounterFromLocalStorage() {
 
 function insertIdeaToModel(idea) {
   ideaBoxModel.push(idea);
-  console.log("insertIdeaToModel:");
-  console.log(idea);
   saveModelToLocalStorage();
 }
 
 function getIdeaFromModel(id) {
-  console.log("getIdeaFromModel: ");
-  console.log(id);
   var idea = $.grep(ideaBoxModel, function(e){ return e.id == id; });
   return idea[0];
 }
@@ -208,6 +212,7 @@ function deleteIdea(e) {
   var article = $(e.target).closest(".idea");
   article.remove();
   var id = locateClickedCard(e);
+  removeEventListeners(id);
   deleteIdeaFromModel(id);
 }
 
@@ -217,7 +222,6 @@ function setQualityState(id) {
   var article = $('[data-id='+id+']');
   var qualityText = article.find('#quality-value');
   qualityText.text(qualities[idea.quality]);
-
 }
 
 function saveTitle(e) {
