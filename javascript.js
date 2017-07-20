@@ -74,6 +74,7 @@ function addIdeaToPage(id, title, body){
   createEventListeners(id);
 }
 function createEventListeners(id) {
+//This is the eventListener jump off point
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
