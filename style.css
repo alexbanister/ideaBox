@@ -111,14 +111,6 @@ textarea::placeholder {
   align-items: center;
   margin-bottom: 1.1em;
 }
-#upvote.vote-disabled, #downvote.vote-disabled {
-  background: none;
-  cursor: default;
-}
-#upvote.vote-disabled:hover, #downvote.vote-disabled:hover {
-  background: none;
-  cursor: default;
-}
 .clearable {
   background: url('images/delete.svg') no-repeat right -2.2em center;
   transition: background .4s;
@@ -138,6 +130,14 @@ textarea::placeholder {
   top: 2em;
   right: .1em;
   /*display: none;*/
+}
+#upvote.vote-disabled, #downvote.vote-disabled {
+  background: none;
+  cursor: default;
+}
+#upvote.vote-disabled:hover, #downvote.vote-disabled:hover {
+  background: none;
+  cursor: default;
 }
 
 #quality-word {
