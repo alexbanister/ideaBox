@@ -11,8 +11,8 @@ $('#save').on('click', submitNewIdea);
 $("#search").on("keyup", searchIdeas);
 
 // functions
+// Dynamic Event listeners
 function createEventListeners(id) {
-//This is the eventListener jump off point
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
@@ -165,10 +165,10 @@ function highlightSearchText(id, obj, regex) {
   body.html(obj.body.replace(regex, function(str) {return '<span class="highlight-search">'+str+'</span>'}));
 }
 
-function slideUpIdeaCard(id) {
+function slideUpIdeaCard(id, killIt) {
   var elementToSlide = $('[data-id='+id+']');
   if (elementToSlide.is(":visible")) {
-    elementToSlide.slideUp( "slow", function() {});
+    elementToSlide.slideUp( "slow", function() { complete: removeIdeaFromDOM(id, killIt) });
   }
 }
 
@@ -211,12 +211,16 @@ function upvote(e) {
 
 function deleteIdea(e) {
   e.preventDefault();
-  var article = $(e.target).closest(".idea");
-  slideUpIdeaCard(id);
-  article.remove();
   var id = locateClickedCard(e);
+  slideUpIdeaCard(id, true);
   removeEventListeners(id);
   deleteIdeaFromModel(id);
+}
+
+function removeIdeaFromDOM(id, killIt) {
+  if (killIt) {
+    $('[data-id='+id+']').remove();
+  }
 }
 
 function setQualityState(id) {
