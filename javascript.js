@@ -12,6 +12,7 @@ $("#search").on("keyup", searchIdeas);
 
 // functions
 function createEventListeners(id) {
+//This is the eventListener jump off point
   $('[data-id='+id+']').on("blur", "h2", saveTitle);
   $('[data-id='+id+']').on("blur", ".idea-text", saveBody);
   $('[data-id='+id+']').on("click", "#downvote", downvote);
