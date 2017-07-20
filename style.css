@@ -73,6 +73,7 @@ input {
 }
 .idea-text {
   margin: 25px auto;
+  line-height: 22px;
 }
 .quality {
   width: 100%;
